@@ -17,22 +17,21 @@ class App extends Component {
   };
 
   formSubmitHandler = (dataForm) => {
-    console.log(dataForm.name);
-    // if (this.state.dataForm.name)
+    if (this.state.contacts.find((el) => el.name === dataForm.name)) {
+      alert(`${dataForm.name} is already in contacts.`);
+    } else {
+      return this.setState((prevState) => {
+        return {
+          contacts: [...prevState.contacts, dataForm],
+        };
+      });
+    }
+  };
 
-    // this.state.contacts.forEach((el) => {
-    //   if (el.name === dataForm.name) {
-    //     alert("aaa");
-    //     return;
-    //   }
-    // });
-
-    return this.setState((prevState) => {
-      console.log(prevState.contacts);
-      return {
-        contacts: [...prevState.contacts, dataForm],
-      };
-    });
+  deleteContactList = (contactId) => {
+    this.setState((prevState) => ({
+      contacts: prevState.contacts.filter((el) => el.id !== contactId),
+    }));
   };
 
   render() {
@@ -42,7 +41,10 @@ class App extends Component {
           <InputContact onSubmit={this.formSubmitHandler} />
         </Section>
         <Section title="Contacts">
-          <Contacts contact={this.state.contacts} />
+          <Contacts
+            contact={this.state.contacts}
+            onDelete={this.deleteContactList}
+          />
         </Section>
       </div>
     );

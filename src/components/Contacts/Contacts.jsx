@@ -1,5 +1,6 @@
+/* eslint-disable array-callback-return */
 import React, { Component } from "react";
-// import s from "../InputContact/InputContact.module.css";
+import s from "../Contacts/Contacts.module.css";
 
 import FindContact from "../FindContact/FindContact";
 
@@ -10,8 +11,6 @@ class Contacts extends Component {
   filterContact = (filterContact) => this.setState({ filter: filterContact });
 
   render() {
-    // console.log(this.props.contact);
-    // console.log(this.props.contact);
     return (
       <>
         <FindContact onChange={this.filterContact} />
@@ -20,15 +19,27 @@ class Contacts extends Component {
             if (this.state.filter) {
               if (el.name.toLowerCase().includes(this.state.filter)) {
                 return (
-                  <li key={el.id} style={{ fontWeight: "bold" }}>
+                  <li key={el.id} className={s.li}>
                     {el.name} {el.number}
+                    <button
+                      className={s.button}
+                      onClick={() => this.props.onDelete(el.id)}
+                    >
+                      Delete
+                    </button>
                   </li>
                 );
               }
             } else {
               return (
-                <li key={el.id} style={{ fontWeight: "bold" }}>
+                <li key={el.id} className={s.li}>
                   {el.name} {el.number}
+                  <button
+                    className={s.button}
+                    onClick={() => this.props.onDelete(el.id)}
+                  >
+                    Delete
+                  </button>
                 </li>
               );
             }
