@@ -3,7 +3,7 @@ import s from "../FindContact/FindContact.module.css";
 
 class FindContact extends Component {
   findInputChange = (ev) => {
-    this.props.onChange(ev.target.value);
+    this.props.onChange(ev.target.value.toLowerCase());
   };
 
   render() {
